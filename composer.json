@@ -2,7 +2,7 @@
     "name": "webmakersteve/instagram",
     "description": "Library for interacting with the Instagram API",
     "require": {
-        "guzzle/guzzle": "^3.9"
+        "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.1",
