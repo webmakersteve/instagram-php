@@ -39,14 +39,23 @@ class Client {
     *
     * @return String
     */
-  private function buildInstagramURL($path, $params = false) {
+  private function buildInstagramURL($path, $params = false, $raw = false) {
 
 
       if (!$path) {
           throw InvalidArgumentException('Path needs to be set and not empty');
       }
 
-      $url = sprintf( '%s://%s/v%d/%s?access_token=%s', $this->options['protocol'], self::HOST, self::API_VERSION, $path, urlencode($this->getAccessToken()));
+
+      $baseUrl = sprintf( '%s://%s', $this->options['protocol'], self::HOST );
+
+      if ($raw) {
+          $url = sprintf( '%s/%s', $baseUrl, $path);
+      } else {
+          $url = sprintf( '%s/v%d/%s?access_token=%s', $baseUrl, self::API_VERSION, $path, urlencode($this->getAccessToken()));
+      }
+
+      $first = true;
 
       if ($params) {
           if (!is_array($params)) {
@@ -55,7 +64,12 @@ class Client {
 
           foreach($params as $paramKey => $paramValue) {
               $value = urlencode($paramValue);
-              $url .= "&${paramKey}=${value}";
+              if ($raw && $first) {
+                  $first = false;
+                  $url .= "?${paramKey}=${value}";
+              } else {
+                  $url .= "&${paramKey}=${value}";
+              }
           }
       }
 
@@ -94,23 +108,27 @@ class Client {
     */
   private function doRequest($path, $method = self::METHOD_GET, $params = array()) {
 
+      $url = false;
+
       try {
 
           $client = new GuzzleClient();
           $options = $this->getDefaultOptions();
 
+          if (preg_match('#^http#i', $path)) {
+              $url = $path;
+          }
+
           if (in_array($method, [self::METHOD_POST, self::METHOD_PUT, self::METHOD_PATCH])) {
-              $url = $this->buildInstagramURL($path);
-              $options['body'] = http_build_query($params);
+              if (!$url) $url = $this->buildInstagramURL($path);
+              $options['form_params'] = $params;
           } else {
-              $url = $this->buildInstagramURL($path, $params);
+              if (!$url) $url = $this->buildInstagramURL($path, $params);
           }
 
           $response = $client->request($method, $url, $options);
 
-          $status = $response->getStatusCode();
-
-          return $response;
+          return $this->parseResponse($response);
 
       } catch (\GuzzleHttp\Exception\ClientException $e) {
           $code = $e->getCode();
@@ -122,11 +140,21 @@ class Client {
             default:
                 // Seems instagram uses this response type for quite a lot of information
                 if ($e->hasResponse()) {
+
                     $response = $this->parseResponse($e->getResponse());
 
                     $message = $response->getProperty('meta.error_message', 'Message not available');
-                    $code = $response->getProperty('meta.code', 0);
-                    $type = $response->getProperty('meta.error_type');
+                    $code = $response->getProperty('meta.code', $code);
+                    $type = $response->getProperty('meta.error_type', 'Unknown');
+
+                    // Not sure why meta is sometimes used and sometimes not but let's try the other one too in case
+                    if (!$response->getProperty('meta', false)) {
+                        $message = $response->getProperty('error_message', 'Message is not available');
+                        $code = $response->getProperty('code', $code);
+                        $type = $response->getProperty('error_type', 'Unknown');
+                    }
+
+                    $message = "[${type}]: ${message}";
 
                     switch ($type) {
 
@@ -196,17 +224,23 @@ class Client {
       $this->redirect_uri = $redirect_uri;
 
       $this->options['turn_off_ssl_verification'] = (isset($this->options['turn_off_ssl_verification']) && $this->options['turn_off_ssl_verification'] == true);
-      
+
       if (!isset($this->options['raise_exceptions'])) {
           $this->options['raise_exceptions'] = true;
       }
 
-      $protocol = isset($this->options['protocol']) ? $this->options['protocol'] : 'https';
+      $this->options['protocol'] = isset($options['protocol']) ? $options['protocol'] : 'https';
 
   }
 
-  public function getLoginUrl($scopes) {
-
+  public function getLoginUrl($scopes = array('basic')) {
+      // https://api.instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=code
+      return $this->buildInstagramURL('oauth/authorize', array(
+          'client_id' => $this->client_id,
+          'redirect_uri' => $this->redirect_uri,
+          'response_type' => 'code',
+          'scopes' => implode(',', $scopes)
+      ), true);
   }
 
   public function getAccessToken() {
@@ -218,7 +252,14 @@ class Client {
   }
 
   public function getOAuthToken($code, $access_code_only = false) {
-
+      $url = $this->buildInstagramUrl('oauth/access_token', array(), true);
+      return $this->doRequest($url, self::METHOD_POST, array(
+          'client_secret' => $this->client_secret,
+          'client_id' => $this->client_id,
+          'grant_type' => 'authorization_code',
+          'code' => $code,
+          'redirect_uri' => $this->redirect_uri
+      ));
   }
 
   // User API

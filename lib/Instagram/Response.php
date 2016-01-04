@@ -68,6 +68,10 @@ class Response {
         return $this->response;
     }
 
+    public function getStatusCode() {
+        return $this->getResponse()->getStatusCode();
+    }
+
     public function getProperty($property, $default = '') {
 
         if (!$this->isJson()) return $default;
