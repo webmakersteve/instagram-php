@@ -182,16 +182,10 @@ class Client {
 
   private function getLimitSize($override) {
     if ($override === null) {
-
-
-      return 0;
+        return $this->limit;
     }
 
     return $override;
-  }
-
-  private function processUserId($id) {
-
   }
 
   // End that
@@ -268,26 +262,40 @@ class Client {
   // User API
 
   public function getUser($id = 'self') {
-
-    $res = $this->doRequest('users/' . $id, self::METHOD_GET);
-
-    return $res;
-
+    return $this->doRequest('users/' . $id, self::METHOD_GET);
   }
 
   public function searchUser($name, $limit = null) {
-    $limit = $this->getLimitSize($limit);
+      $opts = [
+          'count' => $this->getLimitSize($limit),
+          'q' => $name
+      ];
+
+      return $this->doRequest('users/search', self::METHOD_GET, $opts);
   }
 
-  public function getUserMedia($id = 'self', $limit = null) {
-    $limit = $this->getLimitSize($limit);
-    $userId = $this->processUserId($id);
+  public function getUserMedia($id = 'self', $limit = null, $min = false, $max = false) {
+
+    $opts = [
+        'count' => $this->getLimitSize($limit)
+    ];
+
+    if ($min) $opts['min_id'] = $min;
+    if ($max) $opts['max_id'] = $max;
+
+    return $this->doRequest('users/' . $id . '/media/recent', self::METHOD_GET, $opts);
   }
 
   // Auth
 
-  public function getUserLikes($limit = null) {
-    $limit = $this->getLimitSize($limit);
+  public function getUserLiked($limit = null, $max = false) {
+      $opts = [
+          'count' => $this->getLimitSize($limit)
+      ];
+
+      if ($max) $opts['max_like_id'] = $max;
+
+      return $this->doRequest('users/self/media/liked', self::METHOD_GET, $opts);
   }
 
   public function getUserFeed($limit = null) {
