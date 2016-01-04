@@ -1,6 +1,7 @@
 <?php
 
 use Webmakersteve\Instagram\Client;
+use Webmakersteve\Errors\Error;
 
 require 'vendor/autoload.php';
 
