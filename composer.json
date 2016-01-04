@@ -17,6 +17,6 @@
     ],
     "type": "library",
     "autoload": {
-      "psr-0": {"webmakersteve": "lib/"}
+      "psr-0": {"Webmakersteve": "lib/"}
     }
 }
