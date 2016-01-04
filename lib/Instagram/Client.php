@@ -8,6 +8,8 @@ use Webmakersteve\Exception\AuthenticationException;
 
 use GuzzleHttp\Client as GuzzleClient;
 
+use \InvalidArgumentException;
+
 class Client {
 
   const VERSION = '4.0.2';
@@ -27,6 +29,7 @@ class Client {
   private $access_token,
           $client_id,
           $client_secret,
+          $redirect_uri = false,
           $limit = self::DEFAULT_LIMIT;
 
   // private methods
@@ -37,13 +40,13 @@ class Client {
     * @return String
     */
   private function buildInstagramURL($path, $params = false) {
-      // https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=ACCESS_TOKEN
+
 
       if (!$path) {
           throw InvalidArgumentException('Path needs to be set and not empty');
       }
 
-      $url = sprintf('https://%s/v%d/%s?access_token=%s', self::HOST, self::API_VERSION, $path, urlencode($this->getAccessToken()));
+      $url = sprintf( '%s://%s/v%d/%s?access_token=%s', $this->options['protocol'], self::HOST, self::API_VERSION, $path, urlencode($this->getAccessToken()));
 
       if ($params) {
           if (!is_array($params)) {
@@ -166,11 +169,39 @@ class Client {
 
   // End that
 
+  private $options = array();
+
   public function __construct( $options = array() ) {
 
-      $res = $this->doRequest('tags/nofilter/media/recent', self::METHOD_GET);
+      $this->options = array();
+      // We need to set the client id, client secret, and all that shiz
+      // Check if api key is present
 
-      exit;
+      $client_id = isset($options['client_id']) ? $options['client_id'] : false;
+      $client_secret = isset($options['client_secret']) ? $options['client_secret'] : false;
+      $redirect_uri = isset($options['redirect_uri']) ? $options['redirect_uri'] : false;
+
+      if (is_string($client_id)) {
+          $this->client_id = $client_id;
+      } else {
+          throw new InvalidArgumentException('Client ID must be set to communicate with Instagram');
+      }
+
+      if (is_string($client_secret)) {
+          $this->client_secret = $client_secret;
+      } else {
+          throw new InvalidArgumentException('Client secret must be set and must be a string');
+      }
+
+      $this->redirect_uri = $redirect_uri;
+
+      $this->options['turn_off_ssl_verification'] = (isset($this->options['turn_off_ssl_verification']) && $this->options['turn_off_ssl_verification'] == true);
+      
+      if (!isset($this->options['raise_exceptions'])) {
+          $this->options['raise_exceptions'] = true;
+      }
+
+      $protocol = isset($this->options['protocol']) ? $this->options['protocol'] : 'https';
 
   }
 
@@ -192,11 +223,11 @@ class Client {
 
   // User API
 
-  public function getUser($id = false) {
+  public function getUser($id = 'self') {
 
-    if (!$id) {
-      return $this->getUserAuth();
-    }
+    $res = $this->doRequest('users/' . $id, self::METHOD_GET);
+
+    return $res;
 
   }
 
