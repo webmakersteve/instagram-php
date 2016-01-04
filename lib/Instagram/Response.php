@@ -93,4 +93,8 @@ class Response {
 
     }
 
+    public function __get ( $name ) {
+        return $this->getProperty($name, false);
+    }
+
 }

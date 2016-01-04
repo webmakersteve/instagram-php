@@ -41,7 +41,6 @@ class Client {
     */
   private function buildInstagramURL($path, $params = false, $raw = false) {
 
-
       if (!$path) {
           throw InvalidArgumentException('Path needs to be set and not empty');
       }
@@ -244,11 +243,15 @@ class Client {
   }
 
   public function getAccessToken() {
-
+      $access_token = $this->access_token;
+      if (!$access_token || empty($access_token)) {
+          throw new AuthenticationException('Client has not been authorized for authenticated API calls');
+      }
+      return $access_token;
   }
 
-  public function setAccessToken($code) {
-
+  public function setAccessToken($access_token) {
+      $this->access_token = $access_token;
   }
 
   public function getOAuthToken($code, $access_code_only = false) {
