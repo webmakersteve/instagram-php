@@ -39,7 +39,7 @@ class Client {
     *
     * @return String
     */
-  private function buildInstagramURL($path, $params = false, $raw = false) {
+  private function buildInstagramURL($path, $params = false, $raw = false, $method = self::METHOD_GET) {
 
       if (!$path) {
           throw InvalidArgumentException('Path needs to be set and not empty');
@@ -56,7 +56,30 @@ class Client {
 
       $first = true;
 
-      if ($params) {
+      // We need to do parameter replacement
+
+      $oldPath = $path;
+
+      while (preg_match('#/(?P<paramName>[:][^/]+(?P<trail>/|\z))#i', $path, $matches)) {
+          $paramName = $matches['paramName'];
+          $trail = $matches['trail'] ? $matches['trail'] : '';
+          // Trim first character
+          $specialIndex = trim($paramName, ':/');
+
+          // Find it in params list
+          if (isset($params[$specialIndex])) {
+              $replacement = $params[$specialIndex];
+              unset($params[$specialIndex]);
+          } else {
+              $replacement = '';
+          }
+
+          $path = str_replace($paramName, $replacement . $trail, $path );
+
+      }
+
+
+      if (!in_array($method, [self::METHOD_POST, self::METHOD_PUT, self::METHOD_PATCH]) && $params) {
           if (!is_array($params)) {
               throw InvalidArgumentException('Params must be an array');
           }
@@ -118,11 +141,10 @@ class Client {
               $url = $path;
           }
 
+          if (!$url) $url = $this->buildInstagramURL($path, $params, false, $method); // Send method in so it knows to only use param replacement
+
           if (in_array($method, [self::METHOD_POST, self::METHOD_PUT, self::METHOD_PATCH])) {
-              if (!$url) $url = $this->buildInstagramURL($path);
               $options['form_params'] = $params;
-          } else {
-              if (!$url) $url = $this->buildInstagramURL($path, $params);
           }
 
           $response = $client->request($method, $url, $options);
@@ -160,6 +182,8 @@ class Client {
                         case 'OAuthParameterException':
                             throw new AuthenticationException($message, $code);
                             break;
+                        case 'OAuthPermissionsException':
+                            throw new NotPermittedException($message, $code);
                         default:
                             throw new Exception($message, $code);
 
@@ -232,7 +256,7 @@ class Client {
           'client_id' => $this->client_id,
           'redirect_uri' => $this->redirect_uri,
           'response_type' => 'code',
-          'scopes' => implode(',', $scopes)
+          'scopes' => implode(' ', $scopes)
       ), true);
   }
 
@@ -250,19 +274,25 @@ class Client {
 
   public function getOAuthToken($code, $access_code_only = false) {
       $url = $this->buildInstagramUrl('oauth/access_token', array(), true);
-      return $this->doRequest($url, self::METHOD_POST, array(
+      $returnObj = $this->doRequest($url, self::METHOD_POST, array(
           'client_secret' => $this->client_secret,
           'client_id' => $this->client_id,
           'grant_type' => 'authorization_code',
           'code' => $code,
           'redirect_uri' => $this->redirect_uri
       ));
+
+      if (!$access_code_only) return $returnObj;
+
+      return $returnObj->access_token;
   }
 
   // User API
 
   public function getUser($id = 'self') {
-    return $this->doRequest('users/' . $id, self::METHOD_GET);
+    return $this->doRequest('users/:id', self::METHOD_GET, array(
+        'id' => $id,
+    ));
   }
 
   public function searchUser($name, $limit = null) {
@@ -277,13 +307,14 @@ class Client {
   public function getUserMedia($id = 'self', $limit = null, $min = false, $max = false) {
 
     $opts = [
-        'count' => $this->getLimitSize($limit)
+        'count' => $this->getLimitSize($limit),
+        'id' => $id
     ];
 
     if ($min) $opts['min_id'] = $min;
     if ($max) $opts['max_id'] = $max;
 
-    return $this->doRequest('users/' . $id . '/media/recent', self::METHOD_GET, $opts);
+    return $this->doRequest('users/:id/media/recent', self::METHOD_GET, $opts);
   }
 
   // Auth
