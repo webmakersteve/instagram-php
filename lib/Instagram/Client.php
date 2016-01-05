@@ -85,6 +85,7 @@ class Client {
           }
 
           foreach($params as $paramKey => $paramValue) {
+              if ($paramValue === false) continue;
               $value = urlencode($paramValue);
               if ($raw && $first) {
                   $first = false;
