@@ -6,15 +6,18 @@ Yet another Instagram library. The old one I depended on became outdated so I be
 public function getUserMedia($id = 'self', $limit = null, $min = false, $max = false) {
 
    $opts = [
-       'count' => $this->getLimitSize($limit)
+       'count' => $this->getLimitSize($limit),
+       'id' => $id
    ];
 
    if ($min) $opts['min_id'] = $min;
    if ($max) $opts['max_id'] = $max;
 
-   return $this->doRequest('users/' . $id . '/media/recent', self::METHOD_GET, $opts);
+   return $this->doRequest('users/:id/media/recent', self::METHOD_GET, $opts);
  }
 ```
+
+That's right. As of 1/5 the route declarations even support PARAMETER REPLACEMENT. Any parameters found in the route will be stripped from the rest of the request building.
 
 WOAH. So, feel free to pull request with more methods of the API. I am trying to make parameters for the endpoint parameters for the function. I know there may be situations where it doesn't make sense to have so many parameters. In situations where there are a **lot** of optional parameters, I will likely be making an associative array to deal with that.
 
@@ -32,7 +35,7 @@ When we have our beautiful client the API allows you to do public methods. There
 
 ```php
 // Redirect them to the login url
-$instagram->getLoginUrl(['basic', 'relationship']); // You can add additional scopes in here like this
+$instagram->getLoginUrl(['basic', 'public_content']); // You can add additional scopes in here like this
 
 // And when they return...
 
