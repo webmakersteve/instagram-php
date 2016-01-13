@@ -5,6 +5,7 @@ namespace Webmakersteve\Instagram;
 use Webmakersteve\Exception\Exception;
 use Webmakersteve\Exception\NotFoundException;
 use Webmakersteve\Exception\AuthenticationException;
+use Webmakersteve\Exception\NotPermittedException;
 
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -45,15 +46,6 @@ class Client {
           throw InvalidArgumentException('Path needs to be set and not empty');
       }
 
-
-      $baseUrl = sprintf( '%s://%s', $this->options['protocol'], self::HOST );
-
-      if ($raw) {
-          $url = sprintf( '%s/%s', $baseUrl, $path);
-      } else {
-          $url = sprintf( '%s/v%d/%s?access_token=%s', $baseUrl, self::API_VERSION, $path, urlencode($this->getAccessToken()));
-      }
-
       $first = true;
 
       // We need to do parameter replacement
@@ -76,6 +68,14 @@ class Client {
 
           $path = str_replace($paramName, $replacement . $trail, $path );
 
+      }
+
+      $baseUrl = sprintf( '%s://%s', $this->options['protocol'], self::HOST );
+
+      if ($raw) {
+          $url = sprintf( '%s/%s', $baseUrl, $path);
+      } else {
+          $url = sprintf( '%s/v%d/%s?access_token=%s', $baseUrl, self::API_VERSION, $path, urlencode($this->getAccessToken()));
       }
 
 
