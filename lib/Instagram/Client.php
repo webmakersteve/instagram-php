@@ -334,6 +334,18 @@ class Client {
 
   // Public
 
+  public function searchTags($q) {
+      return $this->doRequest('tags/search', self::METHOD_GET, array(
+          'q' => $q
+      ));
+  }
+
+  public function getTag($tag) {
+      return $this->doRequest('tags/:tag', self::METHOD_GET, array(
+          'tag' => $tag
+      ));
+  }
+
   public function getTaggedMedia($tag, $limit = null, $min = false, $max = false) {
       $opts = [
           'tag' => ltrim($tag, '# '),
