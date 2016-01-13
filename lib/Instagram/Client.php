@@ -309,11 +309,10 @@ class Client {
 
     $opts = [
         'count' => $this->getLimitSize($limit),
-        'id' => $id
+        'id' => $id,
+        'min_id' => $min,
+        'max_id' => $max
     ];
-
-    if ($min) $opts['min_id'] = $min;
-    if ($max) $opts['max_id'] = $max;
 
     return $this->doRequest('users/:id/media/recent', self::METHOD_GET, $opts);
   }
@@ -322,16 +321,28 @@ class Client {
 
   public function getUserLiked($limit = null, $max = false) {
       $opts = [
-          'count' => $this->getLimitSize($limit)
+          'count' => $this->getLimitSize($limit),
+          'max_like_id' => $max
       ];
-
-      if ($max) $opts['max_like_id'] = $max;
 
       return $this->doRequest('users/self/media/liked', self::METHOD_GET, $opts);
   }
 
   public function getUserFeed($limit = null) {
     $limit = $this->getLimitSize($limit);
+  }
+
+  // Public
+
+  public function getTaggedMedia($tag, $limit = null, $min = false, $max = false) {
+      $opts = [
+          'tag' => ltrim($tag, '# '),
+          'count' => $this->getLimitSize($limit),
+          'min_tag_id' => $min,
+          'max_tag_id' => $max
+      ];
+
+      return $this->doRequest('tags/:tag/media/recent', self::METHOD_GET, $opts);
   }
 
   // Relationship Methods
