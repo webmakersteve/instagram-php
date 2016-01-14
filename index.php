@@ -13,7 +13,3 @@ $client = new Client(array(
     'client_secret' => 'sa',
     'redirect_uri' => 'asd'
 ));
-
-$client->getTaggedMedia('#hey');
-
-$client->getUser();
