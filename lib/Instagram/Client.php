@@ -257,7 +257,7 @@ class Client {
           'client_id' => $this->client_id,
           'redirect_uri' => $this->redirect_uri,
           'response_type' => 'code',
-          'scopes' => implode(' ', $scopes)
+          'scope' => implode(' ', $scopes)
       ), true);
   }
 
