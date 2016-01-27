@@ -1,4 +1,7 @@
 <?php
+/**
+ * Licensed under the MIT license.
+ */
 
 namespace Webmakersteve\Instagram;
 
@@ -11,10 +14,24 @@ use GuzzleHttp\Client as GuzzleClient;
 
 use \InvalidArgumentException;
 
+/**
+ * Client class is the main class you will interface with
+ */
 class Client {
 
+ /**
+  * Version of the client class
+  */
   const VERSION = '4.0.2';
+
+  /**
+   * API version. Used in URLS
+   */
   const API_VERSION = 1;
+
+  /**
+   * Host of the instagram API
+   */
   const HOST = 'api.instagram.com';
 
   const METHOD_POST = 'POST';
@@ -36,9 +53,14 @@ class Client {
   // private methods
 
   /**
-    * Creates the Instagram URL from the path. Adds access token.
+    * Creates the Instagram URL from the path. Adds access token automatically unless $raw is specified.
     *
-    * @return String
+    * @param string $path String of the path with no prefixing characters, e.g. 'users/self'
+    * @param array $params Parameters to put into the URL. Prioritizes parameter replacement into the URL, and after that will add them as a query string.
+    * @param boolean $raw Determines whether the URL should be returned RAW. That is, without the access token and auth params.
+    * @param string $method Should be assigned to one of the method constants. Determines whether params should be placed as a query string.
+    *
+    * @return string
     */
   private function buildInstagramURL($path, $params = false, $raw = false, $method = self::METHOD_GET) {
 
@@ -109,10 +131,20 @@ class Client {
       return new Response($response);
   }
 
+  /**
+    * Returns a user agent for the API.
+    *
+    * @return string
+    */
   protected function getUserAgent() {
       return 'instagram/' . $this->version . ';php';
   }
 
+  /**
+    * Returns default options for the guzzle HTTP client. Things like specifying that we want JSON.
+    *
+    * @return array
+    */
   protected function getDefaultOptions() {
       $opts = [
           'headers' => [
@@ -124,14 +156,38 @@ class Client {
       return $opts;
   }
 
+  /**
+    * Helper function to do a GET request. Accessible to public in case an endpoint is not implemented as a method abstraction.
+    *
+    * @param string $path The path that will be entered into the URL filter.
+    * @param array $params The params to be entered into the URL.
+    *
+    * @return \Webmakersteve\Instagram\Response
+    */
   public function get($path, $params = array()) {
     return $this->doRequest($path, self::METHOD_GET, $params);
   }
 
+  /**
+    * Helper function to do a POST request. Accessible to public in case an endpoint is not implemented as a method abstraction.
+    *
+    * @param string $path The path that will be entered into the URL filter.
+    * @param array $params The params to be entered into the request body.
+    *
+    * @return \Webmakersteve\Instagram\Response
+    */
   public function post($path, $params = array()) {
     return $this->doRequest($path, self::METHOD_POST, $params);
   }
 
+  /**
+    * Helper function to do a PUT request. Accessible to public in case an endpoint is not implemented as a method abstraction.
+    *
+    * @param string $path The path that will be entered into the URL filter.
+    * @param array $params The params to be entered into the request body.
+    *
+    * @return \Webmakersteve\Instagram\Response
+    */
   public function put($path, $params = array()) {
     return $this->doRequest($path, self::METHOD_PUT, $params);
   }
@@ -139,7 +195,15 @@ class Client {
   /**
     * Does the request and returns the Guzzle response
     *
-    * @return \Guzzle\Http\Response
+    * @param string $path The path to be entered into the URL filter.
+    * @param string $method The method constant to be compared against to determine where the parameters go
+    * @param array $params The parameters to be sent with the request.
+    *
+    * @throws \Webmakersteve\Instagram\AuthenticationException
+    * @throws \Webmakersteve\Instagram\NotPermittedException
+    * @throws \Webmakersteve\Instagram\Exception
+    *
+    * @return \Webmakersteve\Instagram\Response
     */
   private function doRequest($path, $method = self::METHOD_GET, $params = array()) {
 
@@ -217,6 +281,13 @@ class Client {
 
   }
 
+  /**
+    * Helper function to return a limit or an override if it is not a falsy value
+    *
+    * @param integer $override The overriding limit. If it is not null, it will return that value. Otherwise it returns the default limit.
+    *
+    * @return integer
+    */
   private function getLimitSize($override) {
     if ($override === null) {
         return $this->limit;
@@ -227,8 +298,18 @@ class Client {
 
   // End that
 
+  /**
+    * Options array to hold special HTTP options. These are not implemented yet, but will allow you to turn off SSL verification or change the protocol.
+    */
   private $options = array();
 
+  /**
+    * Constructor function. Takes client ID, secret, and redirect URI to establish the class. Can take other options
+    *
+    * @param array $options Options to create the client with. Requires 'client_id', 'client_secret', and 'redirect_uri' to properly work.
+    *
+    * @return \Webmakersteve\Instagram\Client
+    */
   public function __construct( $options = array() ) {
 
       $this->options = array();
@@ -263,6 +344,15 @@ class Client {
 
   }
 
+  /**
+    * Helper function to get the login URL.
+    *
+    * @param string $scopes An array of scopes you want to request the API authorize you for.
+    *
+    * @return string The URL to be used in a redirect request.
+    *
+    * @api
+    */
   public function getLoginUrl($scopes = array('basic')) {
       // https://api.instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=code
       return $this->buildInstagramURL('oauth/authorize', array(
@@ -273,7 +363,13 @@ class Client {
       ), true);
   }
 
-  public function getAccessToken() {
+  /**
+    * Helper function to get the Instagram access token. If it isn't set throws an exception.
+    *
+    * @throws \Webmakersteve\Instagram\AuthenticationException
+    * @return string API access token
+    */
+  private function getAccessToken() {
       $access_token = $this->access_token;
       if (!$access_token || empty($access_token)) {
           throw new AuthenticationException('Client has not been authorized for authenticated API calls');
@@ -281,10 +377,28 @@ class Client {
       return $access_token;
   }
 
+  /**
+    * Helper function to set the Instagram access token. Accessible publicly to allow it to be set after the OAuth flow
+    *
+    * @return \Webmakersteve\Instagram\Client
+    *
+    * @api
+    */
   public function setAccessToken($access_token) {
       $this->access_token = $access_token;
+      return $this;
   }
 
+  /**
+    * Converts an access code into an access token through the API
+    *
+    * @param string $code Code passed through a query parameter by the API
+    * @param boolean $access_code_only Whether to return the entire object or just the access code.
+    *
+    * @return \Webmakersteve\Instagram\Response|string Returns a Response object or a string based on the second parameter
+    *
+    * @api
+    */
   public function getOAuthToken($code, $access_code_only = false) {
       $url = $this->buildInstagramUrl('oauth/access_token', array(), true);
       $returnObj = $this->doRequest($url, self::METHOD_POST, array(
@@ -302,12 +416,31 @@ class Client {
 
   // User API
 
+  /**
+    * Helper function to get user data from the API
+    *
+    * @param string|integer $id 'self' as an ID returns the info about the current user. Otherwise, an ID returns data about that user.
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function getUser($id = 'self') {
     return $this->doRequest('users/:id', self::METHOD_GET, array(
         'id' => $id,
     ));
   }
 
+  /**
+    * Helper function to get search user data from the API
+    *
+    * @param string|integer $name The name as a query to search.
+    * @param integer $limit The limit of results to return
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function searchUser($name, $limit = null) {
       $opts = [
           'count' => $this->getLimitSize($limit),
@@ -317,6 +450,18 @@ class Client {
       return $this->doRequest('users/search', self::METHOD_GET, $opts);
   }
 
+  /**
+    * Helper function to get posts by a given user.
+    *
+    * @param string|integer $id 'self' as an ID returns the posts by the current user. Otherwise, an ID returns posts by that user.
+    * @param integer $limit Max number of users to return. Otherwise defaults to the default limit.
+    * @param integer $min The min ID of users to return. Useful for pagination.
+    * @param integer $max The max ID of users to return. Useful for pagination.
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function getUserMedia($id = 'self', $limit = null, $min = false, $max = false) {
 
     $opts = [
@@ -330,7 +475,16 @@ class Client {
   }
 
   // Auth
-
+  /**
+    * Helper function to get liked users of the logged in user
+    *
+    * @param integer $limit Max number of users to return. Otherwise defaults to the default limit.
+    * @param integer $max The max ID of users to return. Useful for pagination
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function getUserLiked($limit = null, $max = false) {
       $opts = [
           'count' => $this->getLimitSize($limit),
@@ -340,24 +494,62 @@ class Client {
       return $this->doRequest('users/self/media/liked', self::METHOD_GET, $opts);
   }
 
+  /**
+    * Helper function to get the currently logged in user's feed.
+    *
+    * @param integer $limit Max number of users to return. Otherwise defaults to the default limit.
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function getUserFeed($limit = null) {
     $limit = $this->getLimitSize($limit);
   }
 
   // Public
-
+  /**
+    * Searches for currently used Instagram tags.
+    *
+    * @param string $q The query to search
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    */
   public function searchTags($q) {
       return $this->doRequest('tags/search', self::METHOD_GET, array(
           'q' => $q
       ));
   }
 
+  /**
+    * Gets information about a given tag.
+    *
+    * @param string $tag The tag string. Can be returned from the searchTags method
+    *
+    * @return \Webmakersteve\Instagram|Response
+    *
+    * @api
+    * @see \Webmakersteve\Instagram\Client::searchTags()
+    */
   public function getTag($tag) {
       return $this->doRequest('tags/:tag', self::METHOD_GET, array(
-          'tag' => $tag
+          'tag' => ltrim($tag, '# ')
       ));
   }
 
+  /**
+    * Get posts tagged with a given hashtag.
+    *
+    * @param string $tag A hashtag. The # will be trimmed.
+    * @param integer $limit Max number of users to return. Otherwise defaults to the default limit.
+    * @param integer $min The min ID of posts to return. Useful for pagination.
+    * @param integer $max The max ID of posts to return. Useful for pagination.
+    *
+    * @return \Webmakersteve\Instagram|Response
+    * @api
+    */
   public function getTaggedMedia($tag, $limit = null, $min = false, $max = false) {
       $opts = [
           'tag' => ltrim($tag, '# '),
@@ -368,7 +560,5 @@ class Client {
 
       return $this->doRequest('tags/:tag/media/recent', self::METHOD_GET, $opts);
   }
-
-  // Relationship Methods
 
 }
