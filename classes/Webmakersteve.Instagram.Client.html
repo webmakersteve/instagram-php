@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Webmakersteve.html">\Webmakersteve</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">39</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-329854962"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-329854962" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-751178768"></a>
+                                <a href="../namespaces/Webmakersteve.html" style="margin-left: 30px; padding-left: 0">Webmakersteve</a>
+            </div>
+            <div id="namespace-751178768" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1497626267"></a>
+                                <a href="../namespaces/Webmakersteve.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-1497626267" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Webmakersteve.Exception.AuthenticationException.html">AuthenticationException</a></li>
+                                                    <li class="class"><a href="../classes/Webmakersteve.Exception.Exception.html">Exception</a></li>
+                                                    <li class="class"><a href="../classes/Webmakersteve.Exception.NotFoundException.html">NotFoundException</a></li>
+                                                    <li class="class"><a href="../classes/Webmakersteve.Exception.NotPermittedException.html">NotPermittedException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1570796120"></a>
+                                <a href="../namespaces/Webmakersteve.Instagram.html" style="margin-left: 30px; padding-left: 0">Instagram</a>
+            </div>
+            <div id="namespace-1570796120" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Webmakersteve.Instagram.Client.html">Client</a></li>
+                                                    <li class="class"><a href="../classes/Webmakersteve.Instagram.Response.html">Response</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Webmakersteve.Instagram.html">\Webmakersteve\Instagram</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Webmakersteve\Instagram</small>Client</h1>
+                    <p><em>Client class is the main class you will interface with</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_post" class="">post()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_put" class="">put()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getLoginUrl" class="">getLoginUrl()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_setAccessToken" class="">setAccessToken()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getOAuthToken" class="">getOAuthToken()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getUser" class="">getUser()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_searchUser" class="">searchUser()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getUserMedia" class="">getUserMedia()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getUserLiked" class="">getUserLiked()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getUserFeed" class="">getUserFeed()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_searchTags" class="">searchTags()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getTag" class="">getTag()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getTaggedMedia" class="">getTaggedMedia()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_VERSION" class="">VERSION</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_API_VERSION" class="">API_VERSION</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_HOST" class="">HOST</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_METHOD_POST" class="">METHOD_POST</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_METHOD_GET" class="">METHOD_GET</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_METHOD_PUT" class="">METHOD_PUT</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_METHOD_UPDATE" class="">METHOD_UPDATE</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_METHOD_PATCH" class="">METHOD_PATCH</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#constant_DEFAULT_LIMIT" class="">DEFAULT_LIMIT</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getUserAgent" class="">getUserAgent()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getDefaultOptions" class="">getDefaultOptions()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_version" class="">$version</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_buildInstagramURL" class="">buildInstagramURL()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_parseResponse" class="">parseResponse()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_doRequest" class="">doRequest()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getLimitSize" class="">getLimitSize()</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#method_getAccessToken" class="">getAccessToken()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_access_token" class="">$access_token</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_client_id" class="">$client_id</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_client_secret" class="">$client_secret</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_redirect_uri" class="">$redirect_uri</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_limit" class="">$limit</a><br />
+                                                                    <a href="../classes/Webmakersteve.Instagram.Client.html#property_options" class="">$options</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Instagram.Client.html"><div class="path-wrapper">Instagram/Client.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Webmakersteve\Instagram\Client</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION" name="constant_VERSION" class="anchor"></a>
+            <article id="constant_VERSION" class="constant">
+                <h3 class="">VERSION</h3>
+                <pre class="signature">VERSION</pre>
+                <p><em>Version of the client class</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_API_VERSION" name="constant_API_VERSION" class="anchor"></a>
+            <article id="constant_API_VERSION" class="constant">
+                <h3 class="">API_VERSION</h3>
+                <pre class="signature">API_VERSION</pre>
+                <p><em>API version. Used in URLS</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_HOST" name="constant_HOST" class="anchor"></a>
+            <article id="constant_HOST" class="constant">
+                <h3 class="">HOST</h3>
+                <pre class="signature">HOST</pre>
+                <p><em>Host of the instagram API</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_METHOD_POST" name="constant_METHOD_POST" class="anchor"></a>
+            <article id="constant_METHOD_POST" class="constant">
+                <h3 class="">METHOD_POST</h3>
+                <pre class="signature">METHOD_POST</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_METHOD_GET" name="constant_METHOD_GET" class="anchor"></a>
+            <article id="constant_METHOD_GET" class="constant">
+                <h3 class="">METHOD_GET</h3>
+                <pre class="signature">METHOD_GET</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_METHOD_PUT" name="constant_METHOD_PUT" class="anchor"></a>
+            <article id="constant_METHOD_PUT" class="constant">
+                <h3 class="">METHOD_PUT</h3>
+                <pre class="signature">METHOD_PUT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_METHOD_UPDATE" name="constant_METHOD_UPDATE" class="anchor"></a>
+            <article id="constant_METHOD_UPDATE" class="constant">
+                <h3 class="">METHOD_UPDATE</h3>
+                <pre class="signature">METHOD_UPDATE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_METHOD_PATCH" name="constant_METHOD_PATCH" class="anchor"></a>
+            <article id="constant_METHOD_PATCH" class="constant">
+                <h3 class="">METHOD_PATCH</h3>
+                <pre class="signature">METHOD_PATCH</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DEFAULT_LIMIT" name="constant_DEFAULT_LIMIT" class="anchor"></a>
+            <article id="constant_DEFAULT_LIMIT" class="constant">
+                <h3 class="">DEFAULT_LIMIT</h3>
+                <pre class="signature">DEFAULT_LIMIT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_version" name="property_version" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$version</h3>
+                <pre class="signature">$version : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_access_token" name="property_access_token" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$access_token</h3>
+                <pre class="signature">$access_token : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_client_id" name="property_client_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$client_id</h3>
+                <pre class="signature">$client_id : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_client_secret" name="property_client_secret" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$client_secret</h3>
+                <pre class="signature">$client_secret : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_redirect_uri" name="property_redirect_uri" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$redirect_uri</h3>
+                <pre class="signature">$redirect_uri : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_limit" name="property_limit" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$limit</h3>
+                <pre class="signature">$limit : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_options" name="property_options" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$options</h3>
+                <pre class="signature">$options : </pre>
+                <p><em>Options array to hold special HTTP options. These are not implemented yet, but will allow you to turn off SSL verification or change the protocol.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(string  <span class="argument">$path</span>, array  <span class="argument">$params = array()</span>) : \Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to do a GET request. Accessible to public in case an endpoint is not implemented as a method abstraction.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The path that will be entered into the URL filter.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>The params to be entered into the URL.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_post" name="method_post" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">post()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">post(string  <span class="argument">$path</span>, array  <span class="argument">$params = array()</span>) : \Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to do a POST request. Accessible to public in case an endpoint is not implemented as a method abstraction.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The path that will be entered into the URL filter.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>The params to be entered into the request body.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_put" name="method_put" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">put()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">put(string  <span class="argument">$path</span>, array  <span class="argument">$params = array()</span>) : \Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to do a PUT request. Accessible to public in case an endpoint is not implemented as a method abstraction.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The path that will be entered into the URL filter.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>The params to be entered into the request body.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array  <span class="argument">$options = array()</span>) : \Webmakersteve\Instagram\Client</pre>
+                <p><em>Constructor function. Takes client ID, secret, and redirect URI to establish the class. Can take other options</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Options to create the client with. Requires 'client_id', 'client_secret', and 'redirect_uri' to properly work.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Client.html">\Webmakersteve\Instagram\Client</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLoginUrl" name="method_getLoginUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLoginUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLoginUrl(string  <span class="argument">$scopes = array(&#039;basic&#039;)</span>) : string</pre>
+                <p><em>Helper function to get the login URL.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$scopes </td>
+                                <td><p>An array of scopes you want to request the API authorize you for.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The URL to be used in a redirect request.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAccessToken" name="method_setAccessToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAccessToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAccessToken(  <span class="argument">$access_token</span>) : \Webmakersteve\Instagram\Client</pre>
+                <p><em>Helper function to set the Instagram access token. Accessible publicly to allow it to be set after the OAuth flow</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$access_token </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Client.html">\Webmakersteve\Instagram\Client</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getOAuthToken" name="method_getOAuthToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getOAuthToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getOAuthToken(string  <span class="argument">$code</span>, boolean  <span class="argument">$access_code_only = false</span>) : \Webmakersteve\Instagram\Response|string</pre>
+                <p><em>Converts an access code into an access token through the API</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$code </td>
+                                <td><p>Code passed through a query parameter by the API</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$access_code_only </td>
+                                <td><p>Whether to return the entire object or just the access code.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>|string
+                                            &mdash; <p>Returns a Response object or a string based on the second parameter</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUser" name="method_getUser" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUser()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUser(string|integer  <span class="argument">$id = &#039;self&#039;</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to get user data from the API</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|integer</td>
+                                <td>$id </td>
+                                <td><p>'self' as an ID returns the info about the current user. Otherwise, an ID returns data about that user.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_searchUser" name="method_searchUser" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">searchUser()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">searchUser(string|integer  <span class="argument">$name</span>, integer  <span class="argument">$limit = null</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to get search user data from the API</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|integer</td>
+                                <td>$name </td>
+                                <td><p>The name as a query to search.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$limit </td>
+                                <td><p>The limit of results to return</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserMedia" name="method_getUserMedia" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserMedia()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserMedia(string|integer  <span class="argument">$id = &#039;self&#039;</span>, integer  <span class="argument">$limit = null</span>, integer  <span class="argument">$min = false</span>, integer  <span class="argument">$max = false</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to get posts by a given user.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|integer</td>
+                                <td>$id </td>
+                                <td><p>'self' as an ID returns the posts by the current user. Otherwise, an ID returns posts by that user.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$limit </td>
+                                <td><p>Max number of users to return. Otherwise defaults to the default limit.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$min </td>
+                                <td><p>The min ID of users to return. Useful for pagination.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$max </td>
+                                <td><p>The max ID of users to return. Useful for pagination.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserLiked" name="method_getUserLiked" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserLiked()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserLiked(integer  <span class="argument">$limit = null</span>, integer  <span class="argument">$max = false</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to get liked users of the logged in user</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$limit </td>
+                                <td><p>Max number of users to return. Otherwise defaults to the default limit.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$max </td>
+                                <td><p>The max ID of users to return. Useful for pagination</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserFeed" name="method_getUserFeed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserFeed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserFeed(integer  <span class="argument">$limit = null</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Helper function to get the currently logged in user&#039;s feed.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$limit </td>
+                                <td><p>Max number of users to return. Otherwise defaults to the default limit.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_searchTags" name="method_searchTags" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">searchTags()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">searchTags(string  <span class="argument">$q</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Searches for currently used Instagram tags.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$q </td>
+                                <td><p>The query to search</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTag" name="method_getTag" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTag()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTag(string  <span class="argument">$tag</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Gets information about a given tag.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tag </td>
+                                <td><p>The tag string. Can be returned from the searchTags method</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Webmakersteve.Instagram.Client.html#method_searchTags"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTaggedMedia" name="method_getTaggedMedia" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTaggedMedia()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTaggedMedia(string  <span class="argument">$tag</span>, integer  <span class="argument">$limit = null</span>, integer  <span class="argument">$min = false</span>, integer  <span class="argument">$max = false</span>) : \Webmakersteve\Instagram|\Webmakersteve\Instagram\Response</pre>
+                <p><em>Get posts tagged with a given hashtag.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tag </td>
+                                <td><p>A hashtag. The # will be trimmed.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$limit </td>
+                                <td><p>Max number of users to return. Otherwise defaults to the default limit.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$min </td>
+                                <td><p>The min ID of posts to return. Useful for pagination.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$max </td>
+                                <td><p>The max ID of posts to return. Useful for pagination.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Webmakersteve\Instagram|<a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserAgent" name="method_getUserAgent" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getUserAgent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserAgent() : string</pre>
+                <p><em>Returns a user agent for the API.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDefaultOptions" name="method_getDefaultOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getDefaultOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDefaultOptions() : array</pre>
+                <p><em>Returns default options for the guzzle HTTP client. Things like specifying that we want JSON.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_buildInstagramURL" name="method_buildInstagramURL" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">buildInstagramURL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">buildInstagramURL(string  <span class="argument">$path</span>, array  <span class="argument">$params = false</span>, boolean  <span class="argument">$raw = false</span>, string  <span class="argument">$method = self::METHOD_GET</span>) : string</pre>
+                <p><em>Creates the Instagram URL from the path. Adds access token automatically unless $raw is specified.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>String of the path with no prefixing characters, e.g. 'users/self'</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>Parameters to put into the URL. Prioritizes parameter replacement into the URL, and after that will add them as a query string.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$raw </td>
+                                <td><p>Determines whether the URL should be returned RAW. That is, without the access token and auth params.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>Should be assigned to one of the method constants. Determines whether params should be placed as a query string.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseResponse" name="method_parseResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">parseResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseResponse(  <span class="argument">$response</span>) : \Webmakersteve\Instagram\Response</pre>
+                <p><em>Reads response information and returns the format best suited to the body. Usually JSON</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$response </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_doRequest" name="method_doRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">doRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">doRequest(string  <span class="argument">$path</span>, string  <span class="argument">$method = self::METHOD_GET</span>, array  <span class="argument">$params = array()</span>) : \Webmakersteve\Instagram\Response</pre>
+                <p><em>Does the request and returns the Guzzle response</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The path to be entered into the URL filter.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method </td>
+                                <td><p>The method constant to be compared against to determine where the parameters go</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>The parameters to be sent with the request.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Webmakersteve\Instagram\AuthenticationException</dt>
+                            <dd></dd>
+                                                    <dt>\Webmakersteve\Instagram\NotPermittedException</dt>
+                            <dd></dd>
+                                                    <dt>\Webmakersteve\Instagram\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Webmakersteve.Instagram.Response.html">\Webmakersteve\Instagram\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLimitSize" name="method_getLimitSize" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getLimitSize()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLimitSize(integer  <span class="argument">$override</span>) : integer</pre>
+                <p><em>Helper function to return a limit or an override if it is not a falsy value</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$override </td>
+                                <td><p>The overriding limit. If it is not null, it will return that value. Otherwise it returns the default limit.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAccessToken" name="method_getAccessToken" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getAccessToken()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAccessToken() : string</pre>
+                <p><em>Helper function to get the Instagram access token. If it isn&#039;t set throws an exception.</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Webmakersteve\Instagram\AuthenticationException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>API access token</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Client.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Instagram/Client.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Webmakersteve.html">\Webmakersteve</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on January 27th, 2016 at 16:31.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
