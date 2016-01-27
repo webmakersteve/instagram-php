@@ -69,9 +69,13 @@ Instead of `$data->username` you would do `$data->getProperty('username')`. If t
 
 In even brighter news, you can do this in the case of nested properties. `$data->getProperty('user.name.first_name')` If the property is there you'll get it. This doesn't support any array indexing or anything yet, so you'll need to deal with that yourself, but I felt that isn't as large a problem.
 
-There are a few exception classes. There is some Isntagram-sourced data in them. It doesn't just blindly shove the JSON into the message - it tries to actually parse it out and give pertinent information. So, enjoy that.
+There are a few exception classes. There is some Instagram-sourced data in them. It doesn't just blindly shove the JSON into the message - it tries to actually parse it out and give pertinent information. So, enjoy that.
 
 Let me know what you think. Stars are great. Pull requests are better.
+
+## Moar docs
+
+Going through the actual code is pretty easy, and makes it pretty easy to see what's going on. But in case that isn't for you just check out [the documentation](http://webmakersteve.github.io/instagram-php)
 
 ## License
 
