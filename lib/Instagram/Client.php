@@ -124,6 +124,18 @@ class Client {
       return $opts;
   }
 
+  public function get($path, $params = array()) {
+    return $this->doRequest($path, self::METHOD_GET, $params);
+  }
+
+  public function post($path, $params = array()) {
+    return $this->doRequest($path, self::METHOD_POST, $params);
+  }
+
+  public function put($path, $params = array()) {
+    return $this->doRequest($path, self::METHOD_PUT, $params);
+  }
+
   /**
     * Does the request and returns the Guzzle response
     *

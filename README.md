@@ -1,4 +1,4 @@
-# Instagram PHP
+# Instagram PHP [![Build Status](https://travis-ci.org/webmakersteve/instagram-php.svg?branch=master)](https://travis-ci.org/webmakersteve/instagram-php)
 
 Yet another Instagram library. The old one I depended on became outdated so I began the process of rewriting it. So far it has the user endpoints. Happy to take any pull requests. Adding new endpoints is super easy. Take a look at the code for one:
 

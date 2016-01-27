@@ -1,15 +1,5 @@
 <?php
 
-use Webmakersteve\Instagram\Client;
-use Webmakersteve\Errors\Error;
+require 'bootstrap.php';
 
-require 'vendor/autoload.php';
-
-// Dotenv::load(__DIR__);
-// $sendgrid_apikey = getenv('SG_KEY');
-
-$client = new Client(array(
-    'client_id' => 'hey',
-    'client_secret' => 'sa',
-    'redirect_uri' => 'asd'
-));
+# phpunit --bootstrap vendor/autoload.php tests/Instagram/ClientTest.php

@@ -1,17 +1,12 @@
 language: php
 before_script:
-- phpenv local 5.4
-- composer install --dev --no-interaction
-- phpenv local --unset
-- cd test/unit
+- composer install --no-interaction
 script:
-- ../../vendor/bin/phpunit . --bootstrap bootstrap.php --filter test* --coverage-clover clover.xml
-after_script:
-- cd ..
-- phpenv local 5.4
-- phpenv local --unset
+- vendor/bin/phpunit . --bootstrap tests/bootstrap.php tests/tests.php
 php:
-- 5.3
-- 5.4
-- 5.5
 - 5.6
+- 7.0
+env:
+  global:
+  - secure: iQ9hPhTTx1/VoEjqKv8T+/3jkzM4BxGpR1cs9h1gXk4urJfz0fN3px7nSx43YBPsOGPhAfQADMavT/Yd6QR5fQbH7rtgZHdR5BTyoYRFaPblhx5fDTBwiTvpU7dI1Hnz6X8G+F5F+2nk9svqeyGmUhnqtoG2eeySBBq1GmnJgvymS/MbrvqLVAvWc42e3mDdt/njNdMA4bp7gBVywDXW4HBWgohN4q+TinHXx01Y+AxEHKOFeahSzttvqViaeJ8bFdNhoVrvAc1elXwzVfUMPrbglUeIbu6iZxr93ApW/wNzKrGMaxSnPY1Kt7TBxlMooVN34a2ZI3bLt+U7O70C+4hVnsMyxtjI5766W8Qp8yEVlPFT5albAk7zlozxjVfx9u4VOFrmdJXwzcICzGpjykvXglOa4SbuRTkQKjS/SRRVxaGgZGtPQA5HwbWPWbzABFQWA3TtViUPmAk7pciUkrUqkBZUPy0U5trtLCA0WR+la/K5piJ3KhhGYlQdPnd1Ri+W6+XyegWkDCSE9jUOnEpGqxH9YRtF54hmJnBFVDK5Nbto8CQTyWp3VP0Da6B9f7q3dmrp6IhahrwQhcZs2H+SnPAQGKOjDk2FML98tMBjhkNqm27LW3Z/8IMruwJNGwqNwAl/3Ylm/agilRLs/ncsuYfSH+/4W28ZHql7DZI=
+  - secure: HJ204mArAR0hlQRwbTNgdYM4cuZYosCislJMDyucKvPQQaOKdhAY2Z4yNkq0wmAz3v/EVV8Qundsn1cYytVp+BaHjnEkFszNOwjmX673DMfJi4wXGMzRnB446C7HbcYNPtgIHfNpRNkDZpStZ4sHzfkvvpp5oCNeWix8yl5+jimx0qYL0jPN9IM+30Xger9X45UEzxI0vHJCHFPI+jLGxw3h/GFLN8RnxLkkbJSO2hujrz1sPSg41fJeI2R8AOTHd2WDI68EaJ1GA6YCukRUWjIw0qyEpyN8MzgCkB9FsjNsDVZM3JBTg56OhDbAIp6nBSWS5QMcSDlJqidTPTyecOYCsYtwfV/z+OnRMO5dehCz4btveWEiWMy7QFBbxEkYQSPAX5auewvWRrkzlYTFjuEzIdNf9U6Nlce/0rw7ax7oqiUektdYmoN5uRFrQpn9maIiMoWvvFH7vaqSwf1EgiVlRWT8oYuqoV8rfTHJYdwuxHdrOKiImMFyzORCdVI8wamzvIEW562VZFOQe1UVGtXXZUkJXD79NeqsDrjx4U1tQwhFTFjOmNAdLdyatQArapuERjtt2sub1rhHsTbrlq8GDbsI2PawEK1jVUSDHoW9UfHYF4eUfYhIb0ee1/awGHudB3yt8589PIZT/GWI7uJrIXTsbg2AP8imhkdq69E=
